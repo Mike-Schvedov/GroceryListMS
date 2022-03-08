@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="toolbar_brown">#FF714312</color>
     <color name="statusbar_brown">#452604</color>
-
+    <color name="grey">#73716E</color>
+    <color name="black_trans">#99000000</color>
 
 </resources>

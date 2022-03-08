@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.mikeschvedov.grocerylistms.grocerylist.GLViewModel" />
@@ -23,13 +24,129 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:layout_marginTop="60dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="60dp"
             android:orientation="vertical"
             android:paddingBottom="24dp"
-            app:setItems="@{viewModel.groceryListLiveData}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:setItems="@{viewModel.groceryListLiveData}" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingButton_addBTN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/statusbar_brown"
+            android:clickable="true"
+            android:focusable="true"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_add" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingButton_cancelBTN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/statusbar_brown"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            android:tint="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_cancel" />
+
+        <LinearLayout
+            android:id="@+id/addItem_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black_trans"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="36dp"
+                android:background="@color/toolbar_brown"
+                android:elevation="2dp"
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:outlineAmbientShadowColor="@color/black"
+                android:padding="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/include"
+                app:layout_constraintTop_toTopOf="@+id/recyclerView">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="24dp"
+                    android:gravity="center"
+                    android:shadowColor="#000000"
+                    android:shadowDx="3"
+                    android:shadowDy="3"
+                    android:shadowRadius="3"
+                    android:text="- הוסף מוצר לרשימה -"
+                    android:textColor="@color/white"
+                    android:textSize="28dp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    android:background="@color/white"
+                    android:elevation="10dp"
+                    android:hint="מה צריך?"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey"
+                    android:id="@+id/itemName_inputfield"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/white"
+                    android:hint="כמות?"
+                    android:id="@+id/itemAmount_inputfield"
+                    android:padding="8dp"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="100dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:background="@color/statusbar_brown"
+                    android:shadowColor="#000000"
+                    android:shadowDx="3"
+                    android:shadowDy="3"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:shadowRadius="3"
+                    android:text="הוסף"
+                    android:id="@+id/addButton"
+                    android:textSize="24dp"
+                    android:textStyle="bold">
+
+                </Button>
+
+            </LinearLayout>
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mikeschvedov.grocerylistms.model.GroceryListItem
+import java.util.*
 
 
 class GLViewModel: ViewModel() {
@@ -24,5 +25,14 @@ class GLViewModel: ViewModel() {
        repository.updateIsItemBought(id, isBought)
     }
 
+    fun addNewItemToDatabase(newItem: GroceryListItem){
+        repository.addNewItemToDatabase(newItem)
+    }
 
+    // Generate a unique ID
+    fun generateNewID(): String {
+
+        return UUID.randomUUID().toString()
+
+    }
 }

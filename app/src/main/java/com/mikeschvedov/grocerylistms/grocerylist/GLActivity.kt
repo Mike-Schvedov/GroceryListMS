@@ -1,12 +1,11 @@
 package com.mikeschvedov.grocerylistms.grocerylist
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
 import com.mikeschvedov.grocerylistms.R
 import com.mikeschvedov.grocerylistms.databinding.ActivityMainBinding
 import com.mikeschvedov.grocerylistms.model.GroceryListItem
@@ -38,7 +37,55 @@ class GLActivity : AppCompatActivity(), GroceryListRecyclerViewAdapter.GroceryIt
         // Getting the data from the databse
         viewModel.fetchGroceryData()
 
+        // Clicking on the Add New Item Button
+        binding.floatingButtonAddBTN.setOnClickListener {
+            addBTNPressed(binding)
+        }
+
+        // Clicking on the Cancel Adding New Item
+        binding.floatingButtonCancelBTN.setOnClickListener {
+            cancelBTNPressed(binding)
+        }
+
+        binding.addButton.setOnClickListener {
+
+            val itemName = binding.itemNameInputfield.text.toString()
+            val itemAmount = binding.itemAmountInputfield.text.toString()
+
+            println("INFO FROM INPUT FIELDS: ITEM NAME: ${itemName}  ITEM AMOUNT: ${itemAmount}")
+
+            if (itemName.isBlank()){
+                // If the user did not enter something into the item name input field (amount field is not mandatory)
+                Toast.makeText(this, "חסר מידע!", Toast.LENGTH_SHORT).show()
+            }else{
+
+                val newID: String = viewModel.generateNewID()
+
+                val newItem: GroceryListItem = GroceryListItem(newID, itemName, itemAmount, false)
+                viewModel.addNewItemToDatabase(newItem)
+                cancelBTNPressed(binding)
+            }
+
+        }
+
+
+
     }
+
+    fun addBTNPressed(binding: ActivityMainBinding) {
+        binding.addItemLayout.isVisible = true
+        binding.floatingButtonAddBTN.isVisible = false
+        binding.floatingButtonCancelBTN.isVisible = true
+    }
+
+    fun cancelBTNPressed(binding: ActivityMainBinding) {
+        binding.addItemLayout.isVisible = false
+        binding.floatingButtonAddBTN.isVisible = true
+        binding.floatingButtonCancelBTN.isVisible = false
+    }
+
+
+
 
     // region GroceryListRecyclerViewAdapter.GroceryItemInterface ---------------//
 
@@ -53,6 +100,7 @@ class GLActivity : AppCompatActivity(), GroceryListRecyclerViewAdapter.GroceryIt
     override fun onIsBoughtStatusChanged(groceryItemId: String, newStatus: Boolean) {
         viewModel.updateIsItemBought(groceryItemId, newStatus)
     }
+
 
     //endregion GroceryListRecyclerViewAdapter.GroceryItemInterface --------------//
 

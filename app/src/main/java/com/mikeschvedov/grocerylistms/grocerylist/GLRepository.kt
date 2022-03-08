@@ -11,7 +11,7 @@ class GLRepository {
 
     private val database =
         FirebaseDatabase.getInstance("https://grocerylistms-default-rtdb.europe-west1.firebasedatabase.app")
-    private val myRef = database.getReference("news_feed") //.orderByChild("name of element")
+    private val myRef = database.reference //.orderByChild("name of element")
 
 
 
@@ -42,6 +42,12 @@ class GLRepository {
         myRef.child(id).child("bought").setValue(isBought)
     }
 
+    fun addNewItemToDatabase(newItem: GroceryListItem){
+
+        println("----------- ITEM WAS ADDED TO DATABASE ------------")
+        myRef.child(newItem.id).setValue(newItem)
+       // myRef.child(id).key
+    }
 
 
 }

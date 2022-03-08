@@ -63,11 +63,11 @@ class GroceryListRecyclerViewAdapter(
             onClick: (String) -> Unit,
             onIsBoughtChanged: (Boolean) -> Unit
         ) {
-            binding.title = grocerylistItem.title
-            binding.description = grocerylistItem.description
+            binding.name = grocerylistItem.itemName
+            binding.amount = grocerylistItem.itemAmount
 
             binding.root.setOnClickListener {
-                onClick(grocerylistItem.title)
+                onClick(grocerylistItem.itemAmount)
             }
 
             // Toggling the "isBought" checkbox

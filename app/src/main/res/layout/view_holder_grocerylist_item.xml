@@ -18,14 +18,14 @@
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/titleTextView"
+                android:id="@+id/amountTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
                 android:layout_marginBottom="2dp"
                 android:paddingRight="10dp"
                 android:paddingBottom="6dp"
-                android:text="@{title}"
+                android:text="@{amount}"
                 android:textColor="@color/toolbar_brown"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -34,17 +34,17 @@
 
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/ddescriptionTextView"
+                android:id="@+id/nameTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
                 android:padding="4dp"
-                android:text="@{description}"
+                android:text="@{name}"
                 android:textColor="@color/black"
                 android:textDirection="rtl"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/titleTextView"
+                app:layout_constraintBottom_toTopOf="@+id/amountTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/isBoughtItemview"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -69,11 +69,11 @@
     <data>
 
         <variable
-            name="title"
+            name="name"
             type="String" />
 
         <variable
-            name="description"
+            name="amount"
             type="String" />
 
     </data>
