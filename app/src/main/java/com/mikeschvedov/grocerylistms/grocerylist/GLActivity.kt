@@ -8,10 +8,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.mikeschvedov.grocerylistms.R
 import com.mikeschvedov.grocerylistms.databinding.ActivityMainBinding
+import com.mikeschvedov.grocerylistms.databinding.ToolbarLayoutBinding
 import com.mikeschvedov.grocerylistms.model.GroceryListItem
 import java.lang.ref.WeakReference
+import java.util.*
 
 class GLActivity : AppCompatActivity(), GroceryListRecyclerViewAdapter.GroceryItemInterface {
+
+    // Regular view binding for the toolbar layout
+    private lateinit var toolbarBinding: ToolbarLayoutBinding
 
     private val viewModel: GLViewModel by lazy {
         ViewModelProvider(this)[GLViewModel::class.java]
@@ -32,69 +37,122 @@ class GLActivity : AppCompatActivity(), GroceryListRecyclerViewAdapter.GroceryIt
 
         // Creating an instance of the adapter
         val grocerylistAdapter = GroceryListRecyclerViewAdapter(WeakReference(this))
+
+        // So the list will not "shake" when reloading data
+        grocerylistAdapter.setHasStableIds(true)
+
         // Binding the adapter to the recyclerview
         binding.recyclerView.adapter = grocerylistAdapter
+
         // Getting the data from the databse
         viewModel.fetchGroceryData()
 
-        // Clicking on the Add New Item Button
-        binding.floatingButtonAddBTN.setOnClickListener {
-            addBTNPressed(binding)
-        }
+        // ------------------------------- TOOLBAR MENU --------------------------- //
 
-        // Clicking on the Cancel Adding New Item
-        binding.floatingButtonCancelBTN.setOnClickListener {
-            cancelBTNPressed(binding)
-        }
+        var toolbarIsOpen: Boolean = false
 
-        binding.addButton.setOnClickListener {
+        // Clicking on toolbar menu (we access the include tag)
+        binding.includeToolbar.toolbarmenuButton.setOnClickListener {
 
-            val itemName = binding.itemNameInputfield.text.toString()
-            val itemAmount = binding.itemAmountInputfield.text.toString()
-
-            println("INFO FROM INPUT FIELDS: ITEM NAME: ${itemName}  ITEM AMOUNT: ${itemAmount}")
-
-            if (itemName.isBlank()){
-                // If the user did not enter something into the item name input field (amount field is not mandatory)
-                Toast.makeText(this, "חסר מידע!", Toast.LENGTH_SHORT).show()
-            }else{
-
-                val newID: String = viewModel.generateNewID()
-
-                val newItem: GroceryListItem = GroceryListItem(newID, itemName, itemAmount, false)
-                viewModel.addNewItemToDatabase(newItem)
-                cancelBTNPressed(binding)
+            if (!toolbarIsOpen) { // if menu is closed
+                binding.includeToolbar.toolbarmenuLayout.isVisible = true
+                toolbarIsOpen = true
+            } else { // if menu is open
+                binding.includeToolbar.toolbarmenuLayout.isVisible = false
+                toolbarIsOpen = false
             }
 
         }
+        /*                       CLICKING ON THE DELETE "SELECTED ONLY" BUTTON                      */
 
+        binding.includeToolbar.deleteOnlySelectedBTN.setOnClickListener {
+
+            viewModel.openingAlertSelectedLayout(binding)
+
+            toolbarIsOpen = false
+
+
+            // ------------- CLICKING ON THE "DELETE" BUTTON ----------------- //
+            binding.includeToolbar.alertSelectedAcceptBtn.setOnClickListener {
+
+                viewModel.closingAlertSelectedLayout(binding)
+
+                // execute deletion
+                viewModel.deleteOnlySelected()
+
+            }
+            // ------------- CLICKING ON THE "CANCEL"" BUTTON ----------------- //
+            binding.includeToolbar.alertSelectedDeclineBtn.setOnClickListener {
+
+                viewModel.closingAlertSelectedLayout(binding)
+
+            }
+
+
+
+        }
+
+        /*                       CLICKING ON THE "DELETE ENTIRE LIST" BUTTON                      */
+
+        binding.includeToolbar.deleteEntireListBTN.setOnClickListener {
+
+            viewModel.openingAlertAllLayout(binding)
+            toolbarIsOpen = false
+
+            // ------------- CLICKING ON THE "DELETE" BUTTON ----------------- //
+            binding.includeToolbar.alertAllAcceptBtn.setOnClickListener {
+
+                // closing the alert all layout and re-enabling buttons
+                viewModel.closingAlertAllLayout(binding)
+
+                // execute deletion
+                viewModel.deleteEntireList()
+
+            }
+            // ------------- CLICKING ON THE "CANCEL"" BUTTON ----------------- //
+            binding.includeToolbar.alertAllDeclineBtn.setOnClickListener {
+
+                // closing the alert all layout and re-enabling buttons
+                viewModel.closingAlertAllLayout(binding)
+
+            }
+
+
+
+        }
+
+
+        /*                                 NEW ITEM LAYOUT                                        */
+
+        // clicking on "add new item" floating button
+        binding.floatingButtonAddBTN.setOnClickListener {
+            viewModel.floatingAddButtonPressed(binding)
+        }
+
+        // clicking on the "cancel" floating button
+        binding.floatingButtonCancelBTN.setOnClickListener {
+            viewModel.floatingCancelButtonNPressed(binding)
+        }
+
+        // clicking on "add" (inside layout)
+        binding.addButton.setOnClickListener {
+            viewModel.clickingAddNewItem(binding, this)
+        }
 
 
     }
 
-    fun addBTNPressed(binding: ActivityMainBinding) {
-        binding.addItemLayout.isVisible = true
-        binding.floatingButtonAddBTN.isVisible = false
-        binding.floatingButtonCancelBTN.isVisible = true
-    }
-
-    fun cancelBTNPressed(binding: ActivityMainBinding) {
-        binding.addItemLayout.isVisible = false
-        binding.floatingButtonAddBTN.isVisible = true
-        binding.floatingButtonCancelBTN.isVisible = false
-    }
 
 
 
 
-    // region GroceryListRecyclerViewAdapter.GroceryItemInterface ---------------//
 
-    // Implementing the required function from the RecyclerAdapter's Interface
+
+
+    // INTERFACE IMPLEMENTATION
+
     override fun onGroceryItemClicked(url: String) {
-        /* val intent = Intent(this, Activinity::class.java).apply {
-             putExtra(Activity, url)
-         }
-         startActivity(intent)*/
+        TODO("Not yet implemented")
     }
 
     override fun onIsBoughtStatusChanged(groceryItemId: String, newStatus: Boolean) {
@@ -102,7 +160,6 @@ class GLActivity : AppCompatActivity(), GroceryListRecyclerViewAdapter.GroceryIt
     }
 
 
-    //endregion GroceryListRecyclerViewAdapter.GroceryItemInterface --------------//
 
 }
 

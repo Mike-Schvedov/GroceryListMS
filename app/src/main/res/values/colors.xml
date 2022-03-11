@@ -11,5 +11,7 @@
     <color name="statusbar_brown">#452604</color>
     <color name="grey">#73716E</color>
     <color name="black_trans">#99000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="button_browb">#9E7244</color>
 
 </resources>

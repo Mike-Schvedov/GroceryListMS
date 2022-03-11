@@ -9,6 +9,7 @@
         android:layout_marginHorizontal="8dp"
         android:layout_marginVertical="2dp"
         android:elevation="6dp"
+        android:id="@+id/cardview"
         app:cardBackgroundColor="@color/white"
         app:strokeColor="@color/black"
         app:strokeWidth="1dp">
@@ -16,21 +17,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/amountTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
-                android:layout_marginBottom="2dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="6dp"
-                android:text="@{amount}"
-                android:textColor="@color/toolbar_brown"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/isBoughtItemview" />
 
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -48,6 +34,24 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/isBoughtItemview"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/amountTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginBottom="2dp"
+                android:paddingRight="10dp"
+                android:gravity="right"
+                android:textStyle="bold"
+                android:paddingBottom="6dp"
+                android:text="@{amount}"
+                android:textColor="@color/toolbar_brown"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/isBoughtItemview" />
+
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/isBoughtItemview"
