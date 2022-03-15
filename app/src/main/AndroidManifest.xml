@@ -3,6 +3,7 @@
     package="com.mikeschvedov.grocerylistms">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
 
     <application
         android:allowBackup="true"
@@ -12,6 +13,15 @@
         android:supportsRtl="false"
 
         android:theme="@style/Theme.GroceryListMS">
+        <service android:name=".notifications.FirebaseNotificationService"
+            android:permission="com.google.android.c2dm.permission.SEND"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+            </intent-filter>
+
+        </service>
         <activity
             android:name=".grocerylist.GLActivity"
             android:exported="true">

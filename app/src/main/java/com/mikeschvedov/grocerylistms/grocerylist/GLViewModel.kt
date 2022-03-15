@@ -6,8 +6,12 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.messaging.FirebaseMessaging
 import com.mikeschvedov.grocerylistms.databinding.ActivityMainBinding
 import com.mikeschvedov.grocerylistms.model.GroceryListItem
+import com.mikeschvedov.grocerylistms.notifications.FirebaseNotificationService
+import com.mikeschvedov.grocerylistms.notifications.NotificationData
+import com.mikeschvedov.grocerylistms.notifications.PushNotification
 import java.util.*
 
 
@@ -146,6 +150,8 @@ class GLViewModel: ViewModel() {
                 GroceryListItem(newID, itemName, itemAmount, false, currentTimeStamp)
             addNewItemToDatabase(newItem)
             floatingCancelButtonNPressed(binding)
+
+            sendNotificationOnItemAddition()
         }
     }
 
@@ -155,6 +161,27 @@ class GLViewModel: ViewModel() {
 
     fun generateNewID(): String {
         return UUID.randomUUID().toString()
+    }
+
+    fun sendNotificationOnItemAddition() {
+
+        //EXAMPLE
+        val itemTitle: String = "רשימת הקניות שלי"
+        if(itemTitle.isNotEmpty()){
+            PushNotification(
+                NotificationData(itemTitle, "פריט חדש נוסף לרשימה."),
+                NOTIFICATION_TOPIC
+            ).also {
+                repository.sendNotification(it)
+            }
+        }
+
+
+
+    }
+
+    fun subscribeDeviceToTopic() {
+        repository.subscribeDeviceToTopic()
     }
 
 

@@ -1,12 +1,20 @@
 package com.mikeschvedov.grocerylistms.grocerylist
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.gson.Gson
 import com.mikeschvedov.grocerylistms.model.GroceryListItem
+import com.mikeschvedov.grocerylistms.notifications.PushNotification
+import com.mikeschvedov.grocerylistms.notifications.RetrofitInstance
 import com.mikeschvedov.grocerylistms.utils.Constants.Companion.DATABASE_NAME
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class GLRepository {
@@ -86,4 +94,25 @@ class GLRepository {
 
     }
 
+    /*                                          SEND NOTIFICATION                                              */
+
+    fun sendNotification(notification: PushNotification) =
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+
+                val response = RetrofitInstance.api.postNotification(notification)
+                if (response.isSuccessful) {
+                    Log.d("sendNotification", "Response: ${Gson().toJson(response)}")
+                } else {
+                    Log.e("sendNotification", response.errorBody().toString())
+                }
+
+            } catch (e: Exception) {
+                Log.e("sendNotification", e.toString())
+            }
+        }
+
+    fun subscribeDeviceToTopic() {
+        FirebaseMessaging.getInstance().subscribeToTopic(NOTIFICATION_TOPIC)
+    }
 }
