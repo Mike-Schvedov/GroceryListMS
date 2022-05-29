@@ -1,37 +1,24 @@
 package com.mikeschvedov.grocerylistms.grocerylist
 
-import android.content.Context
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
+
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.iid.FirebaseInstanceIdReceiver
-import com.google.firebase.iid.internal.FirebaseInstanceIdInternal
-import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.FirebaseMessagingService
-import com.google.gson.Gson
+
 import com.mikeschvedov.grocerylistms.R
 import com.mikeschvedov.grocerylistms.databinding.ActivityMainBinding
-import com.mikeschvedov.grocerylistms.databinding.ToolbarLayoutBinding
-import com.mikeschvedov.grocerylistms.model.GroceryListItem
-import com.mikeschvedov.grocerylistms.notifications.FirebaseNotificationService
-import com.mikeschvedov.grocerylistms.notifications.FirebaseNotificationService.Companion.token
-import com.mikeschvedov.grocerylistms.notifications.NotificationData
-import com.mikeschvedov.grocerylistms.notifications.PushNotification
-import com.mikeschvedov.grocerylistms.notifications.RetrofitInstance
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+
 import java.lang.ref.WeakReference
-import java.util.*
+
 
 const val NOTIFICATION_TOPIC = "/topics/myTopic"
 
 class GLActivity : AppCompatActivity(), GroceryListRecyclerViewAdapter.GroceryItemInterface {
 
+    /* Version 1.1 Commit 5 at 29/5/22 10:20  */
 
     private val viewModel: GLViewModel by lazy {
         ViewModelProvider(this)[GLViewModel::class.java]
@@ -47,11 +34,6 @@ class GLActivity : AppCompatActivity(), GroceryListRecyclerViewAdapter.GroceryIt
 
         // Subscribe app to topic
         viewModel.subscribeDeviceToTopic()
-
-
-
-
-
 
         binding.lifecycleOwner = this
 

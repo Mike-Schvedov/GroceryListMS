@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#9E7244"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -32,12 +33,10 @@
             app:setItems="@{viewModel.groceryListLiveData}" />
 
 
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingButton_addBTN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
             android:backgroundTint="@color/statusbar_brown"
             android:clickable="true"
@@ -45,13 +44,13 @@
             android:tint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/ic_add" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingButton_cancelBTN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
             android:backgroundTint="@color/statusbar_brown"
             android:clickable="true"
@@ -60,6 +59,7 @@
             android:tint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/ic_cancel" />
 
         <LinearLayout
@@ -95,7 +95,7 @@
                     android:shadowRadius="3"
                     android:text="- הוסף מוצר לרשימה -"
                     android:textColor="@color/white"
-                    android:textSize="28dp"
+                    android:textSize="22dp"
                     android:textStyle="bold" />
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -126,10 +126,10 @@
                     android:textColorHint="@color/grey"
                     android:textStyle="bold" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="100dp"
+                    android:layout_marginHorizontal="80dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="24dp"
                     android:background="@color/statusbar_brown"
@@ -137,6 +137,7 @@
                     android:shadowDx="3"
                     android:shadowDy="3"
                     android:clickable="true"
+                    android:textColor="@color/white"
                     android:focusable="true"
                     android:shadowRadius="3"
                     android:text="הוסף"
@@ -144,7 +145,7 @@
                     android:textSize="24dp"
                     android:textStyle="bold">
 
-                </Button>
+                </androidx.appcompat.widget.AppCompatButton>
 
             </LinearLayout>
         </LinearLayout>
