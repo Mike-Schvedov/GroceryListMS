@@ -24,7 +24,6 @@ class GLActivity : AppCompatActivity(), GroceryListRecyclerViewAdapter.GroceryIt
         ViewModelProvider(this)[GLViewModel::class.java]
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

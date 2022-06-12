@@ -5,33 +5,26 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.mikeschvedov.grocerylistms.grocerylist.GLViewModel" />
 
     </data>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".grocerylist.GLActivity">
 
-
-
-
         <androidx.recyclerview.widget.RecyclerView
-
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="80dp"
             android:orientation="vertical"
             android:paddingBottom="24dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:setItems="@{viewModel.groceryListLiveData}" />
-
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingButton_addBTN"
@@ -42,10 +35,11 @@
             android:clickable="true"
             android:focusable="true"
             android:tint="@color/white"
+            app:srcCompat="@drawable/ic_add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_add" />
+          />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingButton_cancelBTN"
